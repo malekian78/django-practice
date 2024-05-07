@@ -39,3 +39,8 @@ class RegisterPage(FormView):
         if self.request.user.is_authenticated:
             return redirect("task_list")
         return super(RegisterPage, self).get(*args, **kwargs)
+
+def Logout(request):
+    """logout logged in user"""
+    logout(request)
+    return HttpResponseRedirect(reverse_lazy('custom_auth:dashboard'))
