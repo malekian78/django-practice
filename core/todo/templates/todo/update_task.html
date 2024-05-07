@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .todo {
+        width: 100%;
+        max-width: 540px;
+        background: #FFF;
+        margin: 100px auto 20px;
+        padding: 40px 30px 70px;
+        border-radius: 10px;
+    }
+    .addButton {
+        border: 0;
+        outline: 0;
+        padding: 10px 35px;
+        color: #FFF;
+        background: #49A3F2;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 30px;
+    }
+    input {
+        flex: 1;
+        background-color: transparent;
+        padding: 10px;
+        font-weight: 500;
+        border-radius: 12px;
+    }
+</style>
+{% comment %} <div class="card-body">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="button" type="submit" value="Submit">
+    </form>
+</div> {% endcomment %}
+
+<div class="container">
+    <div class="todo">
+        <form class="row" method="post"">
+            {% csrf_token %}
+            {% comment %} <input name="title" type="text" id="input-box" placeholder="Add Task"> {% endcomment %}
+            {{form}}
+            <button class="addButton" type="submit">change</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+    

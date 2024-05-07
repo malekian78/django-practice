@@ -33,12 +33,11 @@
 
     </style>
     <div class="container">
-        {% include "log_out_button.html" %}
         <div class="todo">
             <div>
                 <h2>To Do List <img class="theIcon" src="{% static 'img/icon.png' %}" alt="..."></h2>
                 {% if request.user.is_authenticated %}
-                    <h5 style="color: white;"> {{request.user.email}}</h5>
+                    <h5> {{request.user.email}}</h5>
                     <a href="{% url 'accounts:logout' %}" style="
                         padding: 7px;
                         background: red;
@@ -71,8 +70,15 @@
 
                             {{task.title}}
 
-                            {% comment %} Delete Task {% endcomment %}
-                            <span><form method="post" action="{% url 'delete_task' task.id %}" style="display: flex;width: 30px;height: 32px;">
+                            
+
+                            <span style="width: auto; height: auto; display: flex; align-items: center;">
+                                {% comment %} Update Task {% endcomment %}
+                                <a href="{% url 'update_task' task.id %}" style="display: flex;width: 30px;height: 32px;">
+                                    <img src="{% static 'img/edit.png' %}" style="width: 100%; height: 100%;">
+                                </a>
+                                {% comment %} Delete Task {% endcomment %}
+                                <form method="post" action="{% url 'delete_task' task.id %}" style="display: flex;width: 30px;height: 32px;">
                                 {% csrf_token %}
                                 <button style="background: none;border: none;cursor: pointer;" type="submit"><img style="width: 100%; height: 100%;" src="{% static 'img/delete.png' %}" alt=""></button>
                             </form></span>

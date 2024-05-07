@@ -9,7 +9,7 @@ from django.views.generic.edit import (
     DeleteView,
 )
 from django.urls import reverse_lazy
-# from .forms import TaskUpdateForm
+from .forms import TaskUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 
@@ -50,3 +50,9 @@ class customDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user)
+
+class TaskUpdate(LoginRequiredMixin, UpdateView):
+    model = Task
+    success_url = reverse_lazy("task_list")
+    form_class = TaskUpdateForm
+    template_name = "todo/update_task.html"
