@@ -10,8 +10,8 @@ from django.shortcuts import redirect
 
 class CustomLoginView(LoginView):
     template_name = "accounts/login.html"
-    fields = "username","password"
-    redirect_authenticated_user = True
+    # fields = "email","password"
+    redirect_authenticated_user = True # remeber this warning https://docs.djangoproject.com/en/4.2/topics/auth/default/#django.contrib.auth.views.LoginView.redirect_authenticated_user
 
     def get_success_url(self):
         return reverse_lazy("task_list")
