@@ -12,7 +12,25 @@
 </head>
 
 <body>
-    
+    <style>
+        ul li .theIconAction {
+            content: '';
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-image: url("{% static 'img/unchecked.png' %}");
+            background-size: cover;
+            background-position: center;
+            top: 8px;
+            left: 8px;
+            cursor: pointer;
+        }
+        ul li.checked .theIconAction {
+            background-image: url("{% static 'img/checked.png' %}");
+            top: 7px;
+        }
+    </style>
     <div class="container">
         {% include "log_out_button.html" %}
         <div class="todo">
@@ -21,10 +39,21 @@
                 <input type="text" id="input-box" placeholder="Add Task">
                 <button onclick="addTask()">Add</button>
             </div>
-            <ul id="todo-list"></ul>
+            <ul id="todo-list">     
+                {% for task in tasks %}
+                    {% if task.complete %}
+                        <li class="checked">
+                    {% else %}
+                        <li>
+                    {% endif %}
+                        <span class="theIconAction"></span>
+                        {{task.title}}
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
-    <script src="script.js"></script>
+    {% comment %} <script src="script.js"></script> {% endcomment %}
 </body>
 
 </html>
