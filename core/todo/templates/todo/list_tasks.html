@@ -43,12 +43,16 @@
                 {% for task in tasks %}
                     {% if task.complete %}
                         <li class="checked">
+                            <a class="theIconAction"></a>
+                            {{task.title}}
+                        </li>
                     {% else %}
                         <li>
+                            <a class="theIconAction" href="{% url 'complete_task' task.id %}"></a>
+                            {{task.title}}
+                        </li>
                     {% endif %}
-                        <span class="theIconAction"></span>
-                        {{task.title}}
-                    </li>
+                        
                 {% endfor %}
             </ul>
         </div>
