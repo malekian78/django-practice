@@ -31,3 +31,13 @@ class ChangeToDoneOrUnDone(LoginRequiredMixin, View):
         object.save()
         return redirect(self.success_url)
 
+class customDeleteView(LoginRequiredMixin, DeleteView):
+    model = Task
+    context_object_name = "task"
+    success_url = reverse_lazy("task_list")
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)

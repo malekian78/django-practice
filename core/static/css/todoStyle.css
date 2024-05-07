@@ -30,7 +30,7 @@
     margin-bottom: 20px;
 }
 
-img {
+.theIcon {
     width: 30px;
     margin-left: 10px;
 }
@@ -54,7 +54,7 @@ input {
     font-weight: 500;
 }
 
-button {
+.addButton {
     border: 0;
     outline: 0;
     padding: 16px 50px;
@@ -117,7 +117,7 @@ ul li span {
         border-radius: 30px;
     }
 
-    button:hover {
+    .addButton:hover {
         opacity: 0.85;
     }
 }
