@@ -1,9 +1,26 @@
+from typing import Any
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, get_user_model
 from django.core.exceptions import ValidationError
 UserModel = get_user_model()
+from .models import User
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ("email",)
+    
+    def save(self, commit: bool = ...) -> Any:
+        user = super().save(commit)
+        # user.fullname = self.cleaned_data["fullname"]
+        user.is_active = True
+        if commit:
+            user.save()
+        return user
+    
 
 class CustomAuthenticationForm(forms.Form):
     """

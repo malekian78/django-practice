@@ -4,7 +4,7 @@ from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 from django.shortcuts import redirect
-from .forms import CustomAuthenticationForm
+from .forms import CustomAuthenticationForm, CustomUserCreationForm
 from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect, HttpResponse
@@ -25,7 +25,7 @@ class CustomLoginView(LoginView):
 
 class RegisterPage(FormView):
     template_name = "accounts/register.html"
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm
     redirect_authenticated_user = True
     success_url = reverse_lazy("task_list")
 
