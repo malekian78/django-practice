@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <div class="login-wrap">
+    <div class="login-wrap registeringwrap" style="background-image: url('{% static 'images/bg.jpg' %}');">
         <div class="login-html">
             {% comment %} <div id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Login</label></div> {% endcomment %}
             <div id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label></div>

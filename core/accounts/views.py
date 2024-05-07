@@ -4,18 +4,24 @@ from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 from django.shortcuts import redirect
+from .forms import CustomAuthenticationForm
+from django.contrib.auth import login, authenticate, logout
+from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib import messages
 
 # Create your views here.
 
 
 class CustomLoginView(LoginView):
     template_name = "accounts/login.html"
-    # fields = "email","password"
     redirect_authenticated_user = True # remeber this warning https://docs.djangoproject.com/en/4.2/topics/auth/default/#django.contrib.auth.views.LoginView.redirect_authenticated_user
+    form_class = CustomAuthenticationForm
+    success_url = reverse_lazy('task_list')
 
     def get_success_url(self):
         return reverse_lazy("task_list")
-
+    
 
 class RegisterPage(FormView):
     template_name = "accounts/register.html"
