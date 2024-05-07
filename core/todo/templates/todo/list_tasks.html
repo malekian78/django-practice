@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="img/favicon.svg" type="image/svg">
+    <link rel="shortcut icon" href="{% static 'img/favicon.svg' %}" type="image/svg">
     <link rel="stylesheet" href="{% static 'css/todoStyle.css' %}">
     <title>To Do List</title>
 </head>
@@ -35,11 +35,29 @@
     <div class="container">
         {% include "log_out_button.html" %}
         <div class="todo">
-            <h2>To Do List <img class="theIcon" src="{% static 'img/icon.png' %}" alt="..."></h2>
-            <div class="row">
-                <input type="text" id="input-box" placeholder="Add Task">
-                <button class="addButton" onclick="addTask()">Add</button>
+            <div>
+                <h2>To Do List <img class="theIcon" src="{% static 'img/icon.png' %}" alt="..."></h2>
+                {% if request.user.is_authenticated %}
+                    <h5 style="color: white;"> {{request.user.email}}</h5>
+                    <a href="{% url 'accounts:logout' %}" style="
+                        padding: 7px;
+                        background: red;
+                        color: black;
+                        text-decoration: none;
+                        border-radius: 10px;
+                        font-weight: bold;
+                        margin-left: 3px;
+                        font-size: 10px;">
+                        logout
+                    </a>
+                    {% comment %} <li><a href="{% url 'account:logOut' %}">LogOut</a></li> {% endcomment %}
+                {% endif %}
             </div>
+            <form class="row" method="post" action="{% url 'create_task' %}">
+                {% csrf_token %}
+                <input name="title" type="text" id="input-box" placeholder="Add Task">
+                <button class="addButton" type="submit">Add</button>
+            </form>
             <ul id="todo-list">     
                 {% for task in tasks %}
                     {% comment %} Task Style when checked or NotChecked{% endcomment %}

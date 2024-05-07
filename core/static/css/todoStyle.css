@@ -22,12 +22,18 @@
     border-radius: 10px;
 }
 
-.todo h2 {
+.todo div {
     color: #6A66F2;
     text-transform: uppercase;
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+}
+
+.todo div h2{
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
 }
 
 .theIcon {
