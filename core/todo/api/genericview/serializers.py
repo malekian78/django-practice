@@ -1,16 +1,12 @@
 from rest_framework import serializers
 from todo.models import Task
-from accounts.models import User
 
 
 class ListTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ['id', 'title','user', 'complete']
+        fields = ['id', 'title', 'complete']
     
-    def create(self, validated_data):
-        validated_data["user"] = User.objects.get(id=self.context.get("request").user.id)
-        return super().create(validated_data)
     
 
 class DetailTaskSerializer(serializers.ModelSerializer):
