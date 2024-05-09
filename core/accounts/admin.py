@@ -5,7 +5,7 @@ from .models import User
 class CustomUserAdmin(UserAdmin):
     # setting filds of what to showing in admin-dashboard
     model = User
-    list_display = ("email", "is_superuser", "is_active", "created_date")
+    list_display = ("email","id" , "is_superuser", "is_active", "created_date")
     list_filter = ("email", "is_superuser", "is_active", "created_date")
     search_fields = ("email",)
     ordering = ("created_date",)
