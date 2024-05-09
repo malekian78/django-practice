@@ -7,5 +7,6 @@ urlpatterns = [
     path("update/<int:pk>/", TaskUpdate.as_view(), name="update_task"),
     path("complete/<int:pk>/", ChangeToDoneOrUnDone.as_view(), name="DoneUndone_task"),
     path("delete/<int:pk>/", customDeleteView.as_view(), name="delete_task"),
-    path("api/apiview/", include("todo.api.apiview.urls"))
+    path("api/apiview/", include("todo.api.apiview.urls")),
+    path("api/genericview/", include("todo.api.genericview.urls")),
 ]

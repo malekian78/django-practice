@@ -22,7 +22,9 @@ class TodoListApiView(APIView):
     def post(self, request, *args, **kwargs):
         # Create new Task 
         # ___________________________________ 
-        # try to send user here but not work
+        # try to send user here but not work 
+        # - maybe because i dont set 'user' in fields but even by that
+        # it should be readOnly field so we can not send user here to serializer - maybe not safe too
         # data = {
         #     "title": request.data.get("title"),
         #     # "user": User.objects.get(id=request.user.id) #! not Work 
