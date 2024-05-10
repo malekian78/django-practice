@@ -9,4 +9,5 @@ urlpatterns = [
     path("delete/<int:pk>/", customDeleteView.as_view(), name="delete_task"),
     path("api/apiview/", include("todo.api.apiview.urls")),
     path("api/genericview/", include("todo.api.genericview.urls")),
+    path("api/viewset/", include("todo.api.viewset.urls")),
 ]
