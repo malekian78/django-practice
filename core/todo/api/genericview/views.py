@@ -15,7 +15,7 @@ class TodoListView(generics.ListCreateAPIView):
         # list of task - but base on user request so we can not use queryset only
         # tasks = self.queryset.filter(user= self.request.user)
         tasks = Task.objects.filter(user= request.user)
-        serializer = ListTaskSerializer(tasks, many=True)
+        serializer = ListTaskSerializer(tasks, many=True, context={'request':request})
         return Response(serializer.data)
 
     def perform_create(self, serializer):
