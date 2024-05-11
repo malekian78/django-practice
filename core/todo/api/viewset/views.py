@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
+from todo.api.viewset.permissions import IsOwnerOrReadOnly
 from todo.models import Task
 from .serializers import TaskSerializer
 from rest_framework import permissions
@@ -10,7 +11,7 @@ from rest_framework import status
 class TodoListView(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [ IsOwnerOrReadOnly]
 
     def list(self, request):
         # getting List of Tasks
@@ -40,10 +41,6 @@ class TodoListView(viewsets.ModelViewSet):
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
-        # print("###############################")
-        # print(task)
-        # print(task.__dict__)
-        # return Response(task, status=status.HTTP_200_OK)
 
 
 class TodoDetailApiView(viewsets.ModelViewSet):

@@ -17,3 +17,16 @@ class TaskSerializer(serializers.ModelSerializer):
         request = self.context.get("request")
         # return request.build_absolute_uri(obj.pk)
         return request.build_absolute_uri(reverse('api-viewset:taskList-detail', args=[obj.pk]))
+
+    def to_representation(self, instance):
+        request = self.context.get("request")
+        rep = super().to_representation(instance)
+        
+        if request.parser_context.get("kwargs").get("pk"):
+            rep.pop("relative_url", None)
+            rep.pop("absolute_url", None)
+        else:
+            rep.pop("created_date", None)
+            rep.pop("updated_date", None)
+            rep.pop("user", None)
+        return rep
