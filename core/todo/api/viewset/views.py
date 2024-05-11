@@ -43,31 +43,31 @@ class TodoListView(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-class TodoDetailApiView(viewsets.ModelViewSet):
-    serializer_class = TaskSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    lookup_field = "todo_id"
+# class TodoDetailApiView(viewsets.ModelViewSet):
+#     serializer_class = TaskSerializer
+#     permission_classes = [permissions.IsAuthenticated]
+#     lookup_field = "todo_id"
 
-    def get_object(self, queryset=None):
-        # get task base on user-Request and task-id
+#     def get_object(self, queryset=None):
+#         # get task base on user-Request and task-id
         
-        # obj = Task.objects.get(pk=self.kwargs["todo_id"], user = self.request.user)
-        obj = get_object_or_404(Task, pk=self.kwargs["todo_id"], user = self.request.user)
-        return obj
+#         # obj = Task.objects.get(pk=self.kwargs["todo_id"], user = self.request.user)
+#         obj = get_object_or_404(Task, pk=self.kwargs["todo_id"], user = self.request.user)
+#         return obj
 
-    def delete(self, request, *args, **kwargs):
-        object = self.get_object()
-        object.delete()
-        return Response({"detail": "successfully removed"})
+#     def delete(self, request, *args, **kwargs):
+#         object = self.get_object()
+#         object.delete()
+#         return Response({"detail": "successfully removed"})
 
-    def perform_update(self, serializer):
-        serializer.save(user=self.request.user)
+#     def perform_update(self, serializer):
+#         serializer.save(user=self.request.user)
 
-    # def post(self, request, *args, **kwargs):
-    #     object = self.get_object()
-    #     serializer = TaskSerializer(
-    #         data=request.data, instance=object, many=False
-    #     )
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #     return Response(serializer.data)
+#     # def post(self, request, *args, **kwargs):
+#     #     object = self.get_object()
+#     #     serializer = TaskSerializer(
+#     #         data=request.data, instance=object, many=False
+#     #     )
+#     #     if serializer.is_valid():
+#     #         serializer.save()
+#     #     return Response(serializer.data)

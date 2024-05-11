@@ -17,4 +17,4 @@ class Task(models.Model):
         order_with_respect_to = "user"
         
     def get_relative_api_url(self):
-        return reverse("api-viewset:taskList-detail", kwargs={"pk": self.pk})
+        return reverse("api-viewset:tasks-detail", kwargs={"pk": self.pk})
