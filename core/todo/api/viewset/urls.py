@@ -1,10 +1,10 @@
 from rest_framework.routers import DefaultRouter
-from .views import TodoListView
+from .views import TodoView
 
 app_name = "api-viewset"
 
 router = DefaultRouter()
-router.register("tasks", TodoListView, basename="tasks")
+router.register("tasks", TodoView, basename="tasks")
 # router.register("taskDetail",TodoDetailApiView,basename="taskDetail",)
 
 urlpatterns = []

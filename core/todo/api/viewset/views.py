@@ -8,7 +8,7 @@ from rest_framework import viewsets
 from rest_framework import status
 
 
-class TodoListView(viewsets.ModelViewSet):
+class TodoView(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [ IsOwnerOrReadOnly]
@@ -34,10 +34,11 @@ class TodoListView(viewsets.ModelViewSet):
         obj = get_object_or_404(Task, pk=self.kwargs["pk"], user = self.request.user)
         return obj
 
-    def delete(self, request, *args, **kwargs):
+    def destroy(self, request, *args, **kwargs):
+        print("helllooooooooooooo")
         object = self.get_object()
         object.delete()
-        return Response({"detail": "successfully removed"})
+        return Response({"detail": "successfully removed"}, status=status.HTTP_200_OK)
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
