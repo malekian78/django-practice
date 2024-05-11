@@ -16,7 +16,7 @@ class TodoListApiView(APIView):
     def get(self, request, *args, **kwargs):
         # Return the list of Tasks from requested user
         todos = Task.objects.filter(user=request.user.id)
-        serializer = self.serializer_class(todos, many=True)
+        serializer = self.serializer_class(todos, many=True, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request, *args, **kwargs):
