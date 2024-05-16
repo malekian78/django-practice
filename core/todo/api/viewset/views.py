@@ -11,7 +11,7 @@ from rest_framework import status
 class TodoView(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [ IsOwnerOrReadOnly]
+    permission_classes = [ IsOwnerOrReadOnly, permissions.IsAuthenticated]
 
     def list(self, request):
         # getting List of Tasks
@@ -35,7 +35,6 @@ class TodoView(viewsets.ModelViewSet):
         return obj
 
     def destroy(self, request, *args, **kwargs):
-        print("helllooooooooooooo")
         object = self.get_object()
         object.delete()
         return Response({"detail": "successfully removed"}, status=status.HTTP_200_OK)
