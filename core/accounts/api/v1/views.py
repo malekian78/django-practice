@@ -1,11 +1,12 @@
 from rest_framework import status
-from .serializers import CustomAuthTokenSerializer
+from .serializers import CustomAuthTokenSerializer, customTokenObtainPairSerializer
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 class CustomDiscardAuthToken(APIView):
     # for Discard Token
@@ -33,3 +34,8 @@ class CustomObtainAuthToken(ObtainAuthToken):
         return Response(
             {"token": token.key, "user_id": user.pk, "email": user.email}
         )
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    # Customizing JWT OutPut for create new JWT
+    serializer_class = customTokenObtainPairSerializer
