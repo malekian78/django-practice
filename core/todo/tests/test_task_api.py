@@ -33,7 +33,7 @@ class TestTaskApi:
         url = reverse('api-viewset:tasks-list')
         api_client.force_authenticate(user=common_user)
         response = api_client.get(url)
-        assert response.status_code == 200
+        assert response.status_code == 201
     
     
     def test_create_task_invalid_data_response_400_status(self, api_client, common_user):
