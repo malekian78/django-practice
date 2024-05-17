@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from accounts.models import User
 class Task(models.Model):
     user = models.ForeignKey(
@@ -14,3 +15,6 @@ class Task(models.Model):
 
     class Meta:
         order_with_respect_to = "user"
+        
+    def get_relative_api_url(self):
+        return reverse("api-viewset:tasks-detail", kwargs={"pk": self.pk})
