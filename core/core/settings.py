@@ -157,3 +157,10 @@ REST_FRAMEWORK = {
 
 # celery configs
 CELERY_BROKER_URL = 'redis://redis:6379/1'
+
+# CELERY_BEAT_SCHEDULE = {
+#     'send_email':{
+#         'task': 'todo.tasks.sendEmail',
+#         'schedule': 5
+#     }
+# }

@@ -12,6 +12,14 @@ from django.urls import reverse_lazy
 from .forms import TaskUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
+from django.http import HttpResponse
+import time
+from .tasks import sendEmail
+
+def send_email(request):
+    # time.sleep(3)
+    sendEmail.delay()
+    return HttpResponse("<h1> Done Sending </h1>")
 
 class TaskList(LoginRequiredMixin, ListView):
     model = Task
