@@ -17,13 +17,17 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 
-# @app.task(bind=True, ignore_result=True)
-# def debug_task(self):
-#     print(f'Request: {self.request!r}')
+from celery.schedules import crontab
 
-from todo.tasks import sendEmail
-
-@app.on_after_configure.connect
-def setup_periodic_tasks(sender, **kwargs):
-    # Calls test('hello') every 10 seconds.
-    sender.add_periodic_task(10.0, sendEmail.s(), name='send email every 10')
+app.conf.beat_schedule = {
+    'TestingSendEmail': {
+        'task': 'todo.tasks.DeleteCompletedTask',
+        'schedule': crontab(minute='*/10'), #Execute every 10 minutes.
+    },
+}
+#! ERROR: Apps aren't loaded yet. when using -- ((from todo.models import Task - in todo.tasks))
+# from todo.tasks import sendEmail
+# @app.on_after_configure.connect
+# def setup_periodic_tasks(sender, **kwargs):
+#     # Calls test('hello') every 10 seconds.
+#     sender.add_periodic_task(10.0, sendEmail.s(), name='send email every 10')
