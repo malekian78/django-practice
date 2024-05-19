@@ -20,7 +20,23 @@ from django.views import View
 #     # time.sleep(3)
 #     sendEmail.delay()
 #     return HttpResponse("<h1> Done Sending </h1>")
+import requests
+from django.http import JsonResponse
+from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
+# def testingCach(request):
+#     print(cache.get("test_delay_api"))
+#     if cache.get("test_delay_api") is None:
+#         response = requests.get("https://338780c3-26ed-48b4-907d-edfb19ce8117.mock.pstmn.io/test/delay/5")
+#         cache.set("test_delay_api", response.json())
+#     return JsonResponse(cache.get("test_delay_api"))
+
+@cache_page(60)
+def testingCach(request):
+    response = requests.get("https://338780c3-26ed-48b4-907d-edfb19ce8117.mock.pstmn.io/test/delay/5")
+    return JsonResponse(response.json())
+    
 class TaskList(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = "tasks"
