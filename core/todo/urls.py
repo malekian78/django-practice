@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import ChangeToDoneOrUnDone, TaskList, customDeleteView, TaskCreate, TaskUpdate, testingCach
+from .views import ChangeToDoneOrUnDone, GetWeatherApi, TaskList, customDeleteView, TaskCreate, TaskUpdate #, testingCach
 
 urlpatterns = [
     path('',  TaskList.as_view(), name="task_list"),
@@ -11,5 +11,6 @@ urlpatterns = [
     path("api/genericview/", include("todo.api.genericview.urls")),
     path("api/viewset/", include("todo.api.viewset.urls")),
     # path("send_email/", send_email, name="send_email"),
-    path("testing_cach/", testingCach ,name='testingCache')
+    # path("testing_cach/", testingCach ,name='testingCache'),
+    path("getWeather-api/", GetWeatherApi.as_view(), name="getWeatherApi")
 ]

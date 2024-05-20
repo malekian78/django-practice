@@ -21,9 +21,12 @@ from django.views import View
 #     sendEmail.delay()
 #     return HttpResponse("<h1> Done Sending </h1>")
 import requests
-from django.http import JsonResponse
-from django.core.cache import cache
+# from django.http import JsonResponse
+# from django.core.cache import cache
 from django.views.decorators.cache import cache_page
+from rest_framework.views import APIView
+from django.utils.decorators import method_decorator
+from rest_framework.response import Response
 
 # def testingCach(request):
 #     print(cache.get("test_delay_api"))
@@ -32,10 +35,22 @@ from django.views.decorators.cache import cache_page
 #         cache.set("test_delay_api", response.json())
 #     return JsonResponse(cache.get("test_delay_api"))
 
-@cache_page(60)
-def testingCach(request):
-    response = requests.get("https://338780c3-26ed-48b4-907d-edfb19ce8117.mock.pstmn.io/test/delay/5")
-    return JsonResponse(response.json())
+# @cache_page(60)
+# def testingCach(request):
+#     response = requests.get("https://338780c3-26ed-48b4-907d-edfb19ce8117.mock.pstmn.io/test/delay/5")
+#     return JsonResponse(response.json())
+
+class GetWeatherApi(APIView):
+    # Cache page for the requested url
+    @method_decorator(cache_page(20 * 60))
+    def get(self, request, format=None):
+        # showing the weather condition in Isfahan , refresh every 20 minutes
+        base_url = "http://api.openweathermap.org/data/2.5/weather?"
+        api_key = "3e957a497721f45c0a5217969c5b3d9c"
+        city = "Isfahan"
+        url = base_url + "appid=" + api_key + "&q=" + city
+        response = requests.get(url)
+        return Response(response.json())
     
 class TaskList(LoginRequiredMixin, ListView):
     model = Task
