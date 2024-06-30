@@ -22,3 +22,6 @@ celery==5.4.0
 redis==5.0.4
 django-redis==5.4.0
 requests==2.31.0
+
+# deployment module
+gunicorn
