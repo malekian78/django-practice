@@ -22,7 +22,14 @@ services:
     environment:
       - SECRET_KEY=test
       - DEBUG=True
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=hello_django_dev
+      - SQL_USER=hello_django
+      - SQL_PASSWORD=hello_django
+      - SQL_HOST=db
+      - SQL_PORT=5432
     depends_on:
+      - db
       - redis
   
   nginx:
@@ -45,9 +52,30 @@ services:
     depends_on:
       - redis
       - backend
+      - db
     volumes:
       - ./core:/app
+    environment:
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=hello_django_dev
+      - SQL_USER=hello_django
+      - SQL_PASSWORD=hello_django
+      - SQL_HOST=db
+      - SQL_PORT=5432
+  
+  db:
+    image: postgres:15-bullseye
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=hello_django
+      - POSTGRES_PASSWORD=hello_django
+      - POSTGRES_DB=hello_django_dev
 
 volumes:
   static_volume:
   media_volume:
+  postgres_data:
